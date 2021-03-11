@@ -1,0 +1,32 @@
+{
+  "name": "project_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leonhakimi/project_server.git"
+  },
+  "author": "Leon Hakimi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/leonhakimi/project_server/issues"
+  },
+  "homepage": "https://github.com/leonhakimi/project_server#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
+    "cookie-session": "^1.4.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.13",
+    "nodemon": "^2.0.7",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0"
+  }
+}
