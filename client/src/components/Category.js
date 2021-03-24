@@ -17,24 +17,24 @@ const customStyles = {
   valueContainer: (provided, state) => ({
     ...provided,
     height: "50px",
-    backgroundColor: "red",
+    backgroundColor: "black",
   }),
   option: (provided, state) => ({
     ...provided,
     margin: "0",
     color: state.isSelected ? "red" : "black",
-    zIndex: '1000'
+    zIndex: "1000",
   }),
   control: (styles) => ({
     ...styles,
-    border: "0",
-    backgroundColor: "black",
+    border: "10",
+    backgroundColor: "white",
     color: "black",
   }),
   indicatorsContainer: (provided, state) => ({
     ...provided,
     color: "red",
-    backgroundColor: "red",
+    backgroundColor: "gray",
   }),
 };
 

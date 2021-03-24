@@ -11,17 +11,18 @@ class DateSelection extends React.Component {
         <Calendar
           className="card"
           selectRange
-          onChange={(e) => this.props.updateDate(e, this.props.selection)}
+          onChange={(e) => this.props.updateStats(e, this.props.playerRed, this.props.playerBlue)}
         />
       </div>
     );
   }
 }
 
-function mapStateToProps({ selection, dateSelection }) {
+function mapStateToProps({ dateSelection, playerRed, playerBlue }) {
   return {
-    selection,
-    dateSelection
+    dateSelection,
+    playerRed,
+    playerBlue
   };
 }
 

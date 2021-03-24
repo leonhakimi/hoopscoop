@@ -6,18 +6,18 @@ import DateSelection from './DateSelection';
 class Modal extends Component {
   componentDidMount() {
     const options = {
-      onOpenStart: () => {
-        console.log("Open Start");
-      },
-      onOpenEnd: () => {
-        console.log("Open End");
-      },
-      onCloseStart: () => {
-        console.log("Close Start");
-      },
-      onCloseEnd: () => {
-        console.log("Close End");
-      },
+      // onOpenStart: () => {
+      //   console.log("Open Start");
+      // },
+      // onOpenEnd: () => {
+      //   console.log("Open End");
+      // },
+      // onCloseStart: () => {
+      //   console.log("Close Start");
+      // },
+      // onCloseEnd: () => {
+      //   console.log("Close End");
+      // },
       inDuration: 250,
       outDuration: 250,
       opacity: 0.5,
@@ -35,7 +35,7 @@ class Modal extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <a className=" waves-light btn modal-trigger" data-target="modal1">
           Change Date
         </a>

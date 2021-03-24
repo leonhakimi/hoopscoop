@@ -9,18 +9,21 @@ import Header from "./Header";
 import Select from "./Select";
 import Scatter from "./Scatter";
 import Averages from "./Averages";
-import Category from './Category';
-import Modal from './Modal';
-
+import Category from "./Category";
+import Modal from "./Modal";
+import Selector from "./Selector";
+import Comparison from "./Comparison";
+import ComparisonAverages from "./ComparisonAverages";
+import ShootingSplits from "./ShootingSplits";
 
 function scaleCategory(category) {
   switch (category) {
     case "fp":
-      return 110
+      return 110;
     case "pts":
-      return 81
+      return 81;
     default:
-      return 10
+      return 10;
   }
 }
 
@@ -43,9 +46,19 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <Header />
-        <Route exact path="/" component={Select} />
-        {this.props.selection ? (
-          <div><Category /><Modal /></div>
+        <div className="selector">
+          <div className="select">
+            <Selector color="red" />
+          </div>
+          <div className="select">
+            <Selector color="blue" />
+          </div>
+        </div>
+        {this.props.playerRed ? (
+          <div>
+            <Category />
+            <Modal />
+          </div>
         ) : (
           ""
         )}
@@ -54,12 +67,9 @@ class App extends React.Component {
           path="/myteams/:id"
           render={() => <Select defaultValue={this.props.default} />}
         />
-        
-        {this.props.stats ? (
-          <Scatter xScale={xScale} yScale={yScale} />
-        ) : (
-          ""
-        )}
+
+        {this.props.stats ? <Scatter xScale={xScale} yScale={yScale} /> : ""}
+        {this.props.comparison ? <div><Comparison /><ComparisonAverages /><ShootingSplits /></div> : ""}
         {this.props.averages ? <Averages /> : ""}
       </BrowserRouter>
     );
@@ -72,9 +82,11 @@ function mapStateToProps(state) {
     stats: state.stats,
     default: state.defaultPlayers,
     date: state.dateSelection,
-    selection: state.selection,
+    playerRed: state.playerRed,
+    playerBlue: state.playerRed,
     averages: state.averages,
-    category: state.category
+    category: state.category,
+    comparison: state.comparison,
   };
 }
 

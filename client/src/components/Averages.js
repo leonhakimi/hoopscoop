@@ -5,14 +5,14 @@ import * as actions from "../actions";
 class Averages extends React.Component {
   render() {
     const getName = (playerId) => {
-      const name = this.props.selection.find((player) => player.value === playerId)
-      return name ? name.label : ''
+      return playerId === this.props.playerRed.value ? this.props.playerRed.label : this.props.playerBlue.label
+      
     };
 
     const renderAverages = () => {
       return this.props.averages.map((player) => {
         return (
-          <tr>
+          <tr style={{}} key={player.id}>
             <td>{getName(player.player_id)}</td>
             <td>{player.games_played}</td>
             <td>{player.min}</td>
@@ -40,11 +40,12 @@ class Averages extends React.Component {
     };
 
     return (
-      <div className="averages card">
+      <div className="averages card comparison_container">
+      <h3 className="comparison_header">Season Averages</h3>
         <table style={{ margin: "20px" }} className="striped responsive-table">
           <thead>
-            <tr>
-              <th>NAME</th>
+            <tr key="legend">
+              <th>2020-2021 SEASON</th>
               <th>GP</th>
               <th>MIN</th>
               <th>FGM</th>
@@ -77,6 +78,8 @@ function mapStateToProps(state) {
   return {
     averages: state.averages,
     selection: state.selection,
+    playerRed: state.playerRed,
+    playerBlue: state.playerBlue
   };
 }
 

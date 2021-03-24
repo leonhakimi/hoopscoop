@@ -4,18 +4,6 @@ import AsyncSelect from "react-select/async";
 import _ from "lodash";
 import * as actions from "../actions";
 
-function hashCode(str) {
-  let hash = 0;
-  for (var i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  return hash;
-}
-
-function pickColor(str) {
-  return `hsl(${hashCode(str) % 360}, 100%, 80%)`;
-}
-
 const mapOptions = ({ data }) => {
   return data.map((option) => ({
     value: option.id,
@@ -36,56 +24,73 @@ const loadOptions = _.debounce((inputValue, callback) => {
 }, 500);
 
 const customStyles = {
-  valueContainer: (provided, state) => ({
+  valueContainer: (provided, { selectProps: { color } }) => ({
     ...provided,
-    height: '50px',
-    backgroundColor: 'white',
+    height: "50px",
+    backgroundColor: color,
   }),
-  option: (provided, state) => ({
-    ...provided,
-    margin: '0',
-    color: state.isSelected ? "red" : "black",
-  }),
-  control: (styles) => ({ ...styles, border: '0', backgroundColor: "black", color: 'black' }),
-  multiValue: (styles, { data }) => {
+
+  singleValue: (styles) => {
     return {
       ...styles,
-      backgroundColor: pickColor(data.label),
+      color: "white",
     };
   },
-  multiValueLabel: (styles, { data }) => ({
-    ...styles,
-    color: 'white',
-  }),
-  indicatorsContainer: (provided, state) => ({
+  placeholder: (styles) => {
+    return {
+      ...styles,
+      color: "white",
+    };
+  },
+  indicatorsContainer: (provided, { selectProps: { color } }) => ({
     ...provided,
-    color: 'red',
-    backgroundColor: 'white'
-  })
+    backgroundColor: color,
+  }),
+  option: (provided, { selectProps: { color } }) => ({
+    ...provided,
+    color: color === "blue" ? "white" : "",
+  }),
+  input: (provided) => ({
+    color: "white",
+  }),
+  menu: (styles, { selectProps: { color } }) => {
+    return {
+      ...styles,
+      color: "white",
+      backgroundColor: color,
+    };
+  },
 };
 
 class Select extends Component {
- 
   render() {
     return (
-      <div style={{ position: "fixed", width: "100%", zIndex: "1000" }}>
+      <div style={{ position: "fixed", width: "50%", zIndex: "1000" }}>
         <AsyncSelect
+          color={this.props.color}
           placeholder="Search"
-          isMulti
           cacheOptions
-          defaultValue={this.props.defaultValue}
           loadOptions={loadOptions}
           onChange={(e) => {
-            this.props.updatePlayers(e);
-            this.props.updateDate(this.props.date, e);
+            this.props.updatePlayers(e, this.props.color);
+            this.props.color === "red"
+              ? this.props.updateStats(
+                  this.props.date,
+                  e,
+                  this.props.playerBlue
+                )
+              : this.props.updateStats(
+                  this.props.date,
+                  this.props.playerRed,
+                  e
+                );
           }}
           styles={customStyles}
           theme={(theme) => ({
             ...theme,
-            borderRadius: '0',
             colors: {
               ...theme.colors,
-              primary25: "red",
+              primary25: "black",
               primary: "black",
             },
           })}
@@ -95,10 +100,12 @@ class Select extends Component {
   }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
     date: state.dateSelection,
-  }
+    playerRed: state.playerRed,
+    playerBlue: state.playerBlue,
+  };
 }
 
 export default connect(mapStateToProps, actions)(Select);
