@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import authReducer from "./authReducer";
+//import authReducer from "./authReducer";
 import dateReducer from './dateReducer';
 import statsReducer from "./statsReducer";
-import defaultReducer from "./defaultReducer";
+//import defaultReducer from "./defaultReducer";
 //import selectionReducer from './selectionReducer';
 import averagesReducer from './averagesReducer';
 import categoryReducer from './categoryReducer';
@@ -11,10 +11,10 @@ import blueReducer from './blueReducer';
 import comparisonReducer from './comparisonReducer';
 
 export default combineReducers({
-  auth: authReducer,
+  //auth: authReducer,
   dateSelection: dateReducer,
   stats: statsReducer,
-  defaultPlayers: defaultReducer,
+  //defaultPlayers: defaultReducer,
   //selection: selectionReducer,
   playerRed: redReducer,
   playerBlue: blueReducer,

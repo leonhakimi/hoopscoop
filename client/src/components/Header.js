@@ -18,10 +18,6 @@ class Header extends Component {
       default:
         return (
           <div>
-            <li onClick={() => {this.props.saveTeam(this.props.stats)}}>Save Selection</li>
-            <li>
-              <a href="/api/logout">Logout</a>
-            </li>
           </div>
         );
     }

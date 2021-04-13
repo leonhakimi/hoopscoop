@@ -6,7 +6,6 @@ import * as actions from "../actions";
 import "../styles/App.css";
 
 import Header from "./Header";
-import Select from "./Select";
 import Scatter from "./Scatter";
 import Averages from "./Averages";
 import Category from "./Category";
@@ -28,9 +27,7 @@ function scaleCategory(category) {
 }
 
 class App extends React.Component {
-  componentDidMount() {
-    this.props.fetchUser();
-  }
+
 
   render() {
     const yScale = d3
@@ -62,11 +59,6 @@ class App extends React.Component {
         ) : (
           ""
         )}
-        <Route
-          exact
-          path="/myteams/:id"
-          render={() => <Select defaultValue={this.props.default} />}
-        />
 
         {this.props.stats ? <Scatter xScale={xScale} yScale={yScale} /> : ""}
         {this.props.comparison ? <div><Comparison /><ComparisonAverages /><ShootingSplits /></div> : ""}
